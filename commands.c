@@ -78,5 +78,59 @@
             -C n：打印匹配行的前后n行
 
             在指定文件查找，查找login关键字
-            grep login ImUser.cpp
+            grep login lmUser.cpp
+
+            多个文件中搜索
+            grep login lmUser.cpp MsgConn.cpp
+
+            在多个文件搜索的时候，可以使用通配符。在以cpp结尾的文件中，搜索包含login的行
+            grep login *.cpp
+
+            递归搜索目录下所有文件，搜索msg_server目录下所有文件，打印出包含login的行。
+            grep login -r msg_server/
+
+            反向查找，查找文件中，不包含ClmUser的行
+            grep -v ClmUser lmUser.cpp
+
+            找出文件中包含login的行，并打印出行号
+            grep -n login lmUser.cpp
+
+            找出文件中包含login的行，打印出行号，并显示前后3行
+            grep -C 3 -n login lmUser.cpp
+
+            找出文件中包含login的行，打印出行号，并显示前后3行，并忽略大小写
+            grep -C 3 -i -n login lmUser.cpp
+
+        2.find查找文件
+            通过文件名查找文件的所在位置，文件名查找支持模糊匹配
+            find [指定查找目录] [查找规则] [查找完后执行的action]
+            常用操作：
+            find . -name timer.lua
+            find . -iname TIMER.LUA 忽略文件名称大小写
+            find /etc -maxdepth 1 -name timer.lua
+            find /mnt -size 20K 查找/mnt文件大小近似20K的文件
+            find /mnt -size +20K 查找/mnt文件大小大于20K的文件
+            find /mnt -size -20K 查找/mnt文件大小小于20K的文件
+            find /etc -maxdepth 2 -mindepth 2 -name *.conf 查找/etc/下名称中带有*.conf的文件，且只查找第二层
+            find /mnt -type d 按type查找/mnt中目录
+            find /mnt -type f 按type查找/mnt中文件
+            find /mnt -cmin 10 查找/mnt中十分钟左右修改的
+            find /mnt -cmin +10 查找/mnt中十分钟以上修改的
+            find /mnt -cmin -10 查找/mnt中十分钟以内修改的
+            find /mnt -ctime 10 查找/mnt中十天左右修改的
+            find /mnt -ctime +10 查找/mnt中十天以上修改的
+            find /mnt -ctime -10 查找/mnt中十天以内修改的
+
+        3.ls显示文件
+            -t 可以查看最新修改的时间
+            -l 每行显示一个条目
+            -h 可以结合显示文件的GB、MB等(human)
+            -R 递归显示
+            -n 显示组id和gid
+
+            ls -lt 按最新修改的时间排序，新修改的在前面显示
+            ls -ltR 按最新修改的时间排序，新修改的在前面显示，并显示子目录的文件信息
+            ls -lh 以单位显示文件大小
+        
+        4.wc命令
 */
