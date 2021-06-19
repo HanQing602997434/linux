@@ -214,4 +214,65 @@
             查看返回的结果是否符合预期，curl命令当然是首选的测试方法。
             使用方式：
             curl -i "http://www.sina.com"  # 打印请求响应头信息
+            curl -l "http://www.sina.com"  # 仅返回http头
+            curl -v "http://www.sina.com"  # 打印更多的调式信息
+            curl -verbose "http://www.sina.com"  # 打印更多的调试信息
+            curl -d 'abc=def' "http://www.sina.com"  # 使用post方法提交http请求
+            curl -sw '%{http_code}' "http://www.sina.com"  # 打印http响应码
+
+        8.scp远程拷贝
+            secure copy的缩写，scp是linux系统下基于ssh登陆进行安全的远程文件拷贝命令。
+            scp命令是Linux系统中功能强大的文件传输命令，可以实现从本地到远程，以及从远程
+            到本地的双向文件传输，用起来非常方便，常用来在线上定位问题时将线下的一些文件
+            下载到本地进行详查，或者将本地的修改上传到服务器上。
+            使用方式：
+                sudo apt-get install openssh-server
+                scp liaoqingfu@122.152.222.180:/home/liaoqingfu/test/txt  //下载122.152.222.180的文件
+                scp mi9.aac liaoqingfu@122.152.222.180:/home/liaoqingfu/  //上传文件到122.152.222.180
+                scp -r liaoqingfu@122.152.222.180:/home/liaoqingfu/test.  //下载test整个目录到本地
+                scp -r test liaoqingfu@122.152.222.180:/home/liaoqingfu/  //上传本地test整个目录到122.152.222.180
+
+        9.dos2unix和unix2dos
+            用于转换windows和unix的换行符，通常在windows系统开发的脚本和配置，unix系统下都
+            需要转换。
+            使用方式：
+                dos2unix test.txt
+                unix2dos test.txt
+            
+            转换整个目录：
+                find .-type f -exec dos2unix {} \;
+                find ./ -type f 此命令是显示当前目录下所有的文件。
+
+        10.sed
+            命令格式1：sed 's/原字符串/新字符串/' 文件
+            命令格式2：sed 's/原字符串/新字符串/g' 文件
+            这两种命令格式的区别在于是否有个"g"。没有"g"表示只替换第一个匹配到的字符串，
+            有"g"表示替换所以能匹配到的字符串，"g"可以认为是"global"的缩写，没有"g"结尾
+            就不要替换全部。
+
+            sed命令是用来批量修改文本内容的，比如批量替换配置中的某个ip。
+            sed命令在处理时，会先读取一行，把当前处理的行存储在临时缓冲区中，处理完缓冲区
+            中的内容后打印到屏幕上。然后再读入下一行，执行下一个循环。不断的重复，直到文件
+            末尾。
+
+            简单模式：
+                sed -n   '2,5   p' file.txt
+                    参数  范围  操作
+                一个简单的sed命令包含三个部分：参数、范围、操作。要操作的文件，可以直接挂
+                在命令行的最后。
+
+                参数：
+                -n这个参数是--quiet或者--silent的意思。表明忽略执行过程的输出，只输出我们
+                的结果即可。
+                -i。使用此参数后，所有改动将在原文件上执行。你的输出将覆盖原文件。非常危险，
+                一定要注意。
+
+                范围：
+                2,5表示找到文件中2,3,4,5行的内容。
+        
+        11.awk
+            awk同sed命令类似，只不过sed擅长取行，awk擅长取列。
+            原理：一般是遍历一个文件中的每一行，然后分别对文件每一行进行处理
+            用法：
+                awk [可选的命令行选项] 'BEGIN{命令} pattern{命令} END{命令}' 文件名
 */
